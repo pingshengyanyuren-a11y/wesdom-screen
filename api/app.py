@@ -385,8 +385,8 @@ def get_realtime_status():
             res_pts = sb.table('monitoring_points').select('id, name, type').execute()
             points = res_pts.data
             
-            # 2. 批量获取最近 90 天的数据 (扩大范围防止漏掉低频测点)
-            cutoff_date = (datetime.now() - timedelta(days=90)).isoformat()
+            # 2. 批量获取最近 3650 天的数据 (扩大范围防止漏掉低频测点)
+            cutoff_date = (datetime.now() - timedelta(days=3650)).isoformat()
             
             # 仅获取必要字段，按时间倒序
             res_vals = sb.table('monitoring_values')\

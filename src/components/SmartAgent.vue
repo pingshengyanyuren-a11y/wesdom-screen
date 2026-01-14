@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { ref, nextTick, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { Picture, Close, ChatDotRound, Delete, Promotion } from '@element-plus/icons-vue'
 
 // 状态定义
+const router = useRouter()
 const visible = ref(false)
 const input = ref('')
 const loading = ref(false)
@@ -192,9 +194,28 @@ const sendMessage = async () => {
     const data = await response.json()
     
     if (data.success) {
+      let content = data.data
+      
+      // 解析控制指令 [CMD: NAVIGATE -> /path]
+      const cmdMatch = content.match(/\[CMD: NAVIGATE -> (.*?)\]/)
+      if (cmdMatch) {
+        const path = cmdMatch[1].trim()
+        // 移除指令文本，保持界面整洁
+        content = content.replace(cmdMatch[0], '').trim()
+        
+        ElMessage.success({
+          message: `智能体正在导航至: ${path}`,
+          type: 'success',
+          duration: 2000
+        })
+        
+        // 执行路由跳转
+        router.push(path)
+      }
+
       messages.value.push({
         role: 'assistant',
-        content: data.data,
+        content: content,
         time: new Date().toLocaleTimeString()
       })
     } else {
