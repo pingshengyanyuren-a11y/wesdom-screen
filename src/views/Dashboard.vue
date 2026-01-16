@@ -515,4 +515,28 @@ onUnmounted(() => {
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 768px) {
+  .stats-row {
+    grid-template-columns: 1fr; /* 手机端单列 */
+  }
+  
+  .content-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .link-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .stat-card {
+    padding: 16px;
+  }
+  
+  .footer-info {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+}
 </style>

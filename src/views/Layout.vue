@@ -155,10 +155,48 @@ async function handleLogout() {
   flex-direction: column;
   border-right: 1px solid var(--border);
   transition: width var(--transition-normal);
+  z-index: 1000;
 }
 
 .sidebar.collapsed {
   width: 64px;
+}
+
+/* 移动端侧边栏样式 */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    height: 100%;
+    left: 0;
+    top: 0;
+    width: 240px !important;
+    transform: translateX(0);
+    transition: transform 0.3s ease;
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.5);
+  }
+
+  .sidebar.collapsed {
+    transform: translateX(-100%);
+    width: 240px !important; /* 移动端折叠时完全隐藏，不保留64px */
+  }
+
+  .collapse-btn {
+    display: none; /* 移动端不显示底部的折叠按钮 */
+  }
+  
+  .header {
+    padding: 0 16px;
+    margin: 8px;
+  }
+  
+  .hamburger-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    cursor: pointer;
+    color: var(--text-primary);
+  }
 }
 
 .logo {

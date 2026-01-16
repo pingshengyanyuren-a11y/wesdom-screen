@@ -936,4 +936,54 @@ onMounted(() => {
 :deep(.el-dialog .el-form-item__label) {
   color: #606266 !important;
 }
+  /* 响应式 */
+  @media (max-width: 1024px) {
+    .monitor-page {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto 1fr;
+    }
+    
+    .point-list {
+      max-height: 400px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .monitor-page {
+      display: flex;
+      flex-direction: column;
+      height: auto;
+      overflow-y: auto;
+    }
+    
+    .point-list {
+      max-height: none;
+      height: auto;
+    }
+    
+    .detail-panel {
+      height: auto;
+      min-height: 500px;
+    }
+    
+    .time-filter-bar {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    
+    .filter-group {
+      width: 100%;
+      flex-wrap: wrap;
+    }
+    
+    .info-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .data-stats-bar {
+      flex-direction: column;
+      gap: 8px;
+    }
+  }
 </style>
