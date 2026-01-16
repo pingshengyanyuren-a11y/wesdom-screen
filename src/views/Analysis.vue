@@ -70,7 +70,7 @@ const predictSteps = ref(30)
 
 // 时间筛选
 const timeFilterType = ref('recent6months') // recent1month, recent3months, recent6months, recent1year, all, custom
-const customDateRange = ref<[Date, Date] | null>(null)
+const customDateRange = ref<[string, string] | null>(null)
 
 // 预测结果
 const predictionResult = ref<mlApi.PredictionResult | null>(null)
@@ -177,16 +177,31 @@ async function runPrediction() {
     try {
       const result = await mlApi.getCachedPrediction(selectedPoint.value)
       
-      if (!result) throw new Error('未找到该测点的预计算数据，请先执行“全量训练”')
+      if (!result) {
+        ElMessage.info('未找到预计算数据，正在自动为您切换到“实时算力”进行计算...')
+        predictionMode.value = 'realtime'
+        await runPrediction() // 递归调用实时模式
+        return
+      }
       
-      // 构造完整结果结构
-      // 注意：这里简化处理，实际项目应确保getCachedPrediction返回完整PredictionResult结构
-      // 或者在此处进行必要的补全
-      // 由于API返回结构可能与PredictionResult不完全一致，这里做简单兼容
-      predictionResult.value = result as any 
-      ElMessage.success(`⚡ 已从数据库秒级加载预测结果 (预测时间: ${new Date(result.predicted_at).toLocaleString()})`)
+      // 数据库模式优化：尝试补全历史数据，让图表看起来完整
+      try {
+        const historyData = await mlApi.getPointHistory(selectedPoint.value, 30)
+        if (historyData) {
+          result.history = historyData.values
+          result.dates = historyData.dates
+          result.type = historyData.type
+        }
+      } catch (hErr) {
+        console.warn('补全历史数据失败:', hErr)
+      }
+      
+      predictionResult.value = result
+      ElMessage.success(`⚡ 已从数据库秒级加载预测结果`)
     } catch (e: any) {
-      ElMessage.error(e.message)
+      ElMessage.error(`数据库加载失败: ${e.message}，正在尝试实时计算...`)
+      predictionMode.value = 'realtime'
+      await runPrediction()
     } finally {
       loading.value = false
     }
@@ -214,8 +229,8 @@ async function runPrediction() {
       const now = new Date()
       
       if (timeFilterType.value === 'custom' && customDateRange.value) {
-        startDate = customDateRange.value[0].toISOString().split('T')[0]
-        endDate = customDateRange.value[1].toISOString().split('T')[0]
+        startDate = customDateRange.value[0]
+        endDate = customDateRange.value[1]
       } else if (timeFilterType.value !== 'all') {
         endDate = now.toISOString().split('T')[0]
         const start = new Date(now)
@@ -252,11 +267,21 @@ async function runPrediction() {
       const { data: dbData } = await query
       
       if (dbData && dbData.length > 0) {
-        recentHistory = dbData.map((d: any) => ({
-          measure_time: d.measure_time,
-          value: d.value
-        }))
-        console.log(`已获取 ${recentHistory.length} 条历史数据 (${timeFilterType.value})用于预测`)
+        // [优化] 数据去重与清洗
+        const uniqueMap = new Map()
+        dbData.forEach((d: any) => {
+          const time = new Date(d.measure_time).getTime()
+          const key = `${time}-${Number(d.value).toFixed(6)}`
+          if (!uniqueMap.has(key)) {
+            uniqueMap.set(key, {
+              measure_time: d.measure_time,
+              value: Number(d.value)
+            })
+          }
+        })
+        
+        recentHistory = Array.from(uniqueMap.values())
+        console.log(`已获取 ${recentHistory.length} 条去重后的历史数据 (${timeFilterType.value})用于预测`)
       }
     } catch (e) {
       console.warn('获取历史数据失败，将使用后端默认数据', e)
@@ -370,6 +395,7 @@ const predictionChartOption = computed(() => {
   
   // X轴：历史日期 + 未来日期
   const dates = [...r.dates]
+  const futureStart = dates.length > 0 ? dates.length : 0
   for (let i = 1; i <= r.predictions.length; i++) {
     dates.push(`+${i}天`)
   }
@@ -377,8 +403,15 @@ const predictionChartOption = computed(() => {
   // 历史数据系列
   const historyData = [...r.history, ...Array(r.predictions.length).fill(null)]
   
-  // 预测数据系列（与历史最后一点连接）
-  const predData = [...Array(historyLen - 1).fill(null), r.history[historyLen - 1], ...r.predictions]
+  // 预测数据系列
+  let predData: (number | null)[] = []
+  if (historyLen > 0) {
+    // 与历史最后一点连接
+    predData = [...Array(historyLen - 1).fill(null), r.history[historyLen - 1], ...r.predictions]
+  } else {
+    // 无历史数据，直接从第一点开始
+    predData = [...r.predictions]
+  }
   
   // 置信区间
   const upperData = r.confidence_upper.length > 0 
@@ -597,9 +630,11 @@ function handleTypeChange() {
 }
 
 // 处理自定义日期变化
-function handleCustomDateChange(value: [Date, Date] | null) {
+function handleCustomDateChange(value: [string, string] | null) {
   if (value) {
     timeFilterType.value = 'custom'
+  } else {
+    timeFilterType.value = 'recent6months'
   }
 }
 
@@ -763,11 +798,20 @@ onMounted(() => {
             start-placeholder="开始日期"
             end-placeholder="结束日期"
             size="small"
-            style="width: 240px"
+            style="width: 220px"
             format="YYYY-MM-DD"
             value-format="YYYY-MM-DD"
             @change="handleCustomDateChange"
           />
+          <el-button 
+            type="primary" 
+            size="small" 
+            icon="Check"
+            @click="ElMessage.success('时间区间已设定，请点击“启动预测”')"
+            style="margin-left: 4px"
+          >
+            确定
+          </el-button>
         </div>
         
         <div class="filter-hint">

@@ -40,7 +40,7 @@ const searchKeyword = ref('')
 
 // 时间筛选
 const timeFilterType = ref('recent6months') // recent1week, recent1month, recent3months, recent6months, recent1year, all, custom
-const customDateRange = ref<[Date, Date] | null>(null)
+const customDateRange = ref<[string, string] | null>(null)
 const selectedYear = ref<number | null>(null)
 
 // 测点数据
@@ -53,6 +53,42 @@ const selectedPoint = ref<MonitoringPoint | null>(null)
 // 历史数据
 const historyData = ref<MonitoringValue[]>([])
 const chartLoading = ref(false)
+
+// [关键优化] 统一处理历史数据：去重 + 排序
+const processedData = computed(() => {
+  if (!historyData.value || historyData.value.length === 0) {
+    return { asc: [], desc: [], total: 0 }
+  }
+  
+  // 1. 去重 (基于时间戳和数值)
+  const uniqueMap = new Map()
+  historyData.value.forEach(item => {
+    // 使用时间戳和值的组合作为 key，确保完全重复的数据被过滤
+    const timestamp = new Date(item.measuredAt).getTime()
+    const key = `${timestamp}-${item.value.toFixed(6)}`
+    if (!uniqueMap.has(key)) {
+      uniqueMap.set(key, item)
+    }
+  })
+  
+  const uniqueList = Array.from(uniqueMap.values())
+  
+  // 2. 基础排序 (升序，用于图表)
+  const sortedAsc = [...uniqueList].sort((a, b) => 
+    new Date(a.measuredAt).getTime() - new Date(b.measuredAt).getTime()
+  )
+  
+  // 3. 基础排序 (降序，用于表格)
+  const sortedDesc = [...uniqueList].sort((a, b) => 
+    new Date(b.measuredAt).getTime() - new Date(a.measuredAt).getTime()
+  )
+  
+  return {
+    asc: sortedAsc,
+    desc: sortedDesc,
+    total: uniqueList.length
+  }
+})
 
 // 新增测值表单
 const addValueDialogVisible = ref(false)
@@ -75,15 +111,15 @@ const filteredPoints = computed(() => {
 
 // 数据统计信息
 const dataStats = computed(() => {
-  if (historyData.value.length === 0) return null
+  const data = processedData.value.asc
+  if (data.length === 0) return null
   
-  const dates = historyData.value.map((d: MonitoringValue) => new Date(d.measuredAt).getTime())
-  const totalPoints = historyData.value.length
+  const dates = data.map((d: MonitoringValue) => new Date(d.measuredAt).getTime())
   
   return {
     startDate: new Date(Math.min(...dates)).toLocaleDateString('zh-CN'),
     endDate: new Date(Math.max(...dates)).toLocaleDateString('zh-CN'),
-    totalPoints,
+    totalPoints: processedData.value.total,
     avgInterval: dates.length > 1 
       ? ((Math.max(...dates) - Math.min(...dates)) / (dates.length - 1) / (1000 * 60 * 60 * 24)).toFixed(1)
       : '0'
@@ -141,7 +177,7 @@ const chartOption = computed(() => ({
   },
   xAxis: {
     type: 'category',
-    data: historyData.value.map(d => new Date(d.measuredAt).toLocaleString('zh-CN', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })),
+    data: processedData.value.asc.map(d => new Date(d.measuredAt).toLocaleString('zh-CN', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })),
     axisLine: { lineStyle: { color: 'rgba(255,255,255,0.2)' } },
     axisLabel: { color: '#94a3b8', fontSize: 10 }
   },
@@ -157,7 +193,7 @@ const chartOption = computed(() => ({
     name: '测值',
     type: 'line',
     smooth: true,
-    data: historyData.value.map(d => d.value),
+    data: processedData.value.asc.map(d => d.value),
     lineStyle: { color: '#00d4ff', width: 2 },
     areaStyle: {
       color: {
@@ -247,10 +283,14 @@ async function selectPoint(point: MonitoringPoint) {
 /**
  * 处理自定义日期变化
  */
-function handleCustomDateChange(value: [Date, Date] | null) {
+function handleCustomDateChange(value: [string, string] | null) {
   if (value) {
     timeFilterType.value = 'custom'
     selectedYear.value = null
+    // 不再自动触发加载，由确定按钮触发
+  } else {
+    // 如果清除，则切回默认
+    timeFilterType.value = 'recent6months'
     loadHistoryWithFilter()
   }
 }
@@ -273,9 +313,9 @@ async function loadHistoryWithFilter() {
       startDate = `${selectedYear.value}-01-01`
       endDate = `${selectedYear.value}-12-31`
     } else if (timeFilterType.value === 'custom' && customDateRange.value) {
-      // 自定义日期区间
-      startDate = customDateRange.value[0].toISOString().split('T')[0]
-      endDate = customDateRange.value[1].toISOString().split('T')[0]
+      // 自定义日期区间 (直接使用字符串)
+      startDate = customDateRange.value[0]
+      endDate = customDateRange.value[1]
     } else if (timeFilterType.value === 'all') {
       // 全部数据，不设置日期范围
       startDate = undefined
@@ -348,14 +388,14 @@ function openAddValueDialog(point: MonitoringPoint) {
  * 导出为CSV
  */
 function exportToCSV() {
-  if (historyData.value.length === 0) {
+  if (processedData.value.desc.length === 0) {
     ElMessage.warning('暂无数据可导出')
     return
   }
   
   const csvContent = [
     ['测量时间', '测量值(mm)', '测点编号'],
-    ...historyData.value.map((d: MonitoringValue) => [
+    ...processedData.value.desc.map((d: MonitoringValue) => [
       new Date(d.measuredAt).toLocaleString(),
       d.value,
       selectedPoint.value?.name || ''
@@ -541,11 +581,21 @@ onMounted(() => {
               start-placeholder="开始日期"
               end-placeholder="结束日期"
               size="small"
-              style="width: 240px"
+              style="width: 220px"
               format="YYYY-MM-DD"
               value-format="YYYY-MM-DD"
               @change="handleCustomDateChange"
             />
+            <el-button 
+              type="primary" 
+              size="small" 
+              icon="Search"
+              :loading="chartLoading"
+              @click="loadHistoryWithFilter"
+              style="margin-left: 4px"
+            >
+              确定
+            </el-button>
           </div>
           <div class="filter-group" style="margin-left: auto">
             <el-button-group size="small">
@@ -592,7 +642,7 @@ onMounted(() => {
               <span class="tab-label"><el-icon><Tickets /></el-icon> 历史数据</span>
             </template>
             <div class="history-table-container">
-              <el-table :data="historyData" max-height="400px" style="width: 100%" size="small">
+              <el-table :data="processedData.desc" max-height="400px" style="width: 100%" size="small">
                 <el-table-column label="测量时间" width="180">
                   <template #default="{ row }">
                     {{ new Date(row.measuredAt).toLocaleString() }}

@@ -65,6 +65,32 @@
   --transition-slow: 400ms ease;
 }
 
+/* ========== 明亮模式覆盖 ========== */
+.light-theme {
+  --primary-dark: #f0f2f5;
+  --primary: #ffffff;
+  --primary-light: #e6e8eb;
+  
+  --accent: #0070f3;
+  --accent-secondary: #0051ad;
+  --accent-glow: rgba(0, 112, 243, 0.1);
+  --accent-gradient: linear-gradient(135deg, #0070f3 0%, #0051ad 100%);
+
+  --text-primary: #1f2937;
+  --text-secondary: #4b5563;
+  --text-muted: #9ca3af;
+
+  --border: rgba(0, 0, 0, 0.08);
+  --border-accent: rgba(0, 112, 243, 0.2);
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-bg-hover: rgba(255, 255, 255, 0.9);
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --shadow-glow: 0 0 15px rgba(0, 112, 243, 0.15);
+}
+
 /* ========== 全局样式 ========== */
 * {
   margin: 0;

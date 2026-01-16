@@ -67,7 +67,11 @@ class DataProcessor:
                 
                 df = pd.DataFrame(res.data)
                 df['value'] = pd.to_numeric(df['value'])
-                df['measure_time'] = pd.to_datetime(df['measured_at'])
+                # 使用 mixed 格式以兼容带/不带微秒的时间字符串
+                try:
+                    df['measure_time'] = pd.to_datetime(df['measured_at'], format='mixed')
+                except:
+                    df['measure_time'] = pd.to_datetime(df['measured_at'], errors='coerce')
                 df['type'] = point_info['type']
                 df['point_name'] = point_name
                 

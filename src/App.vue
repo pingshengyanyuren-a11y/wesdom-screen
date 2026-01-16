@@ -9,7 +9,7 @@ import SmartAgent from '@/components/SmartAgent.vue'
 
 <template>
   <router-view />
-  <SmartAgent />
+  <SmartAgent style="position: fixed; z-index: 99999;" />
 </template>
 
 <style>

@@ -367,9 +367,9 @@ const sendMessage = async () => {
   cursor: grab;
   z-index: 10000; /* 提升层级 */
   user-select: none;
-  background: rgba(15, 23, 42, 0.6); /* 玻璃态背景 */
+  background: var(--glass-bg); /* 玻璃态背景 */
   backdrop-filter: blur(10px);
-  box-shadow: 0 0 0 1px rgba(0, 212, 255, 0.3), 0 8px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 0 1px var(--border-accent), 0 8px 30px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s;
 }
 
@@ -382,12 +382,12 @@ const sendMessage = async () => {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: linear-gradient(135deg, rgba(0, 212, 255, 0.8), rgba(37, 99, 235, 0.9));
+  background: var(--accent-gradient);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: white;
+  color: var(--primary-dark);
   position: relative;
   z-index: 2;
   box-shadow: inset 0 2px 10px rgba(255, 255, 255, 0.3);
@@ -397,7 +397,7 @@ const sendMessage = async () => {
   font-size: 11px;
   margin-top: 4px;
   font-weight: 600;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
 /* 脉冲动画环 */
@@ -409,7 +409,7 @@ const sendMessage = async () => {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  border: 2px solid #00d4ff;
+  border: 2px solid var(--accent);
   opacity: 0;
   z-index: 1;
   animation: pulse-glow 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
@@ -425,7 +425,7 @@ const sendMessage = async () => {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: rgba(0, 212, 255, 0.3);
+  background: var(--accent-glow);
   z-index: 0;
   animation: pulse-dot 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
 }
@@ -451,8 +451,9 @@ const sendMessage = async () => {
 }
 
 .float-btn.active .btn-content {
-  background: linear-gradient(135deg, #0f172a, #1e293b);
-  border: 2px solid #00d4ff;
+  background: var(--primary-dark);
+  border: 2px solid var(--accent);
+  color: var(--text-primary);
 }
 
 
@@ -464,21 +465,21 @@ const sendMessage = async () => {
   width: 420px;
   height: 650px;
   max-height: 80vh;
-  background: rgba(15, 23, 42, 0.95);
+  background: var(--primary);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(0, 212, 255, 0.3);
+  border: 1px solid var(--border-accent);
   border-radius: 16px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   z-index: 9998;
-  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.8);
+  box-shadow: var(--shadow-lg);
 }
 
 .header {
   padding: 16px;
-  background: rgba(0, 212, 255, 0.1);
-  border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+  background: var(--accent-glow);
+  border-bottom: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -494,7 +495,7 @@ const sendMessage = async () => {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #0ea5e9, #2563eb);
+  background: var(--accent-gradient);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -504,21 +505,21 @@ const sendMessage = async () => {
 .title-text h3 {
   margin: 0;
   font-size: 16px;
-  color: #fff;
+  color: var(--text-primary);
   font-weight: 600;
 }
 
 .status {
   font-size: 11px;
-  color: #10b981;
+  color: var(--success);
 }
 
 .close-btn {
-  color: #94a3b8;
+  color: var(--text-secondary);
 }
 
 .close-btn:hover {
-  color: #fff;
+  color: var(--text-primary);
 }
 
 /* 消息区 */
@@ -545,7 +546,7 @@ const sendMessage = async () => {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: #1e293b;
+  background: var(--primary-light);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -554,8 +555,8 @@ const sendMessage = async () => {
 }
 
 .avatar.user {
-  background: #2563eb;
-  color: #fff;
+  background: var(--accent);
+  color: var(--primary-dark);
   font-size: 10px;
 }
 
@@ -571,19 +572,19 @@ const sendMessage = async () => {
   border-radius: 12px;
   font-size: 14px;
   line-height: 1.5;
-  color: #e2e8f0;
+  color: var(--text-primary);
   word-break: break-word;
 }
 
 .assistant .bubble {
-  background: rgba(30, 41, 59, 0.8);
-  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: var(--glass-bg);
+  border: 1px solid var(--border);
   border-top-left-radius: 2px;
 }
 
 .user .bubble {
-  background: linear-gradient(135deg, #2563eb, #0284c7);
-  color: white;
+  background: var(--accent-gradient);
+  color: var(--primary-dark);
   border-top-right-radius: 2px;
 }
 
@@ -602,7 +603,7 @@ const sendMessage = async () => {
 
 .time {
   font-size: 10px;
-  color: #64748b;
+  color: var(--text-muted);
   align-self: flex-start;
 }
 
@@ -628,8 +629,8 @@ const sendMessage = async () => {
 /* 底部输入区 */
 .footer {
   padding: 16px;
-  background: rgba(15, 23, 42, 0.8);
-  border-top: 1px solid rgba(0, 212, 255, 0.1);
+  background: var(--primary);
+  border-top: 1px solid var(--border);
 }
 
 .img-preview-bar {
@@ -643,7 +644,7 @@ const sendMessage = async () => {
   height: 60px;
   border-radius: 8px;
   position: relative;
-  border: 1px solid #00d4ff;
+  border: 1px solid var(--accent);
   overflow: hidden;
 }
 
@@ -673,10 +674,10 @@ const sendMessage = async () => {
   display: flex;
   align-items: center;
   gap: 12px;
-  background: rgba(30, 41, 59, 0.5);
+  background: var(--glass-bg);
   padding: 8px 12px;
   border-radius: 24px;
-  border: 1px solid rgba(148, 163, 184, 0.2);
+  border: 1px solid var(--border);
 }
 
 .tool-btn {
@@ -689,20 +690,20 @@ const sendMessage = async () => {
 }
 
 .tool-btn:hover {
-  background: rgba(255,255,255,0.1);
+  background: var(--glass-bg-hover);
 }
 
 .text-input {
   flex: 1;
   background: transparent;
   border: none;
-  color: #fff;
+  color: var(--text-primary);
   outline: none;
   font-size: 14px;
 }
 
 .send-btn {
-  background: #00d4ff;
+  background: var(--accent);
   border: none;
   width: 32px;
   height: 32px;
@@ -710,7 +711,7 @@ const sendMessage = async () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #0f172a;
+  color: var(--primary-dark);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
@@ -718,12 +719,12 @@ const sendMessage = async () => {
 
 .send-btn:hover {
   transform: scale(1.1);
-  box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+  box-shadow: var(--shadow-glow);
 }
 
 .send-btn:disabled {
-  background: #334155;
-  color: #64748b;
+  background: var(--primary-light);
+  color: var(--text-muted);
   cursor: not-allowed;
   transform: none;
   box-shadow: none;

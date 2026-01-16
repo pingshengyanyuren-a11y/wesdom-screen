@@ -103,25 +103,30 @@ export async function getMonitoringPoint(id: string): Promise<MonitoringPoint | 
  * @param pointId 测点ID
  * @param startDate 可选，开始日期 (YYYY-MM-DD)
  * @param endDate 可选，结束日期 (YYYY-MM-DD)
- * @param limit 限制数量，默认1000条
+ * @param limit 限制数量，默认2000条
  */
 export async function getMonitoringValues(
     pointId: string,
     startDate?: string,
     endDate?: string,
-    limit: number = 1000
+    limit: number = 2000
 ): Promise<MonitoringValue[]> {
+    if (!pointId) {
+        console.warn('getMonitoringValues: pointId is required')
+        return []
+    }
+
     let query = supabase
         .from('monitoring_values')
         .select('*')
         .eq('point_id', pointId)
-        .order('measured_at', { ascending: true })
+        .order('measured_at', { ascending: false }) // 改为降序，优先获取最新数据
 
     // 添加时间范围筛选
-    if (startDate) {
+    if (startDate && startDate.match(/^\d{4}-\d{2}-\d{2}/)) {
         query = query.gte('measured_at', startDate)
     }
-    if (endDate) {
+    if (endDate && endDate.match(/^\d{4}-\d{2}-\d{2}/)) {
         query = query.lte('measured_at', endDate + ' 23:59:59') // 包含结束日期的全天数据
     }
 

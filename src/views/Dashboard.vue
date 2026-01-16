@@ -27,12 +27,12 @@ const statistics = ref<Statistics>({
 const waterLevel = ref(142.35)
 
 // 快速入口
-const quickLinks = [
+const quickLinks = ref([
   { title: '引张线监测', count: 0, type: 'tension_wire', icon: 'Connection', color: '#00d4ff', route: '/monitor' },
   { title: '静力水准', count: 0, type: 'hydrostatic_level', icon: 'DataLine', color: '#10b981', route: '/monitor' },
   { title: '倒垂线', count: 0, type: 'plumb_line', icon: 'Aim', color: '#f59e0b', route: '/monitor' },
   { title: '三维模型', count: 1, type: 'model', icon: 'View', color: '#8b5cf6', route: '/bigscreen' }
-]
+])
 
 // 最近告警
 interface AlarmItem {
@@ -52,12 +52,22 @@ let timer: number | null = null
  * 加载数据
  */
 async function loadData() {
+  // 并行加载，互不影响
+  Promise.allSettled([
+    loadStatistics(),
+    loadQuickAccessData()
+  ])
+}
+
+/**
+ * 加载统计数据和ML分析
+ */
+async function loadStatistics() {
   try {
     // 1. 获取统计数据 (基础)
     const stats = await getStatistics()
     
     // 2. [关键修改] 使用ML后端数据覆盖风险统计，确保全站数据统一
-    // 2. [关键修改] 使用ML后端数据覆盖风险统计
     // 2.1 尝试获取 ML 后端测点列表 (允许失败)
     try {
       const mlData = await mlApi.getPoints()
@@ -94,21 +104,36 @@ async function loadData() {
             status: a.severity === 'high' ? 'danger' : 'warning',
             time: a.measure_time.split(' ')[0]
           }))
+      } else {
+          statistics.value = stats
       }
     } catch (mlError) {
       console.error('ML Backend Anomaly sync failed:', mlError)
       // 保持使用 stats (数据库静态统计) 作为降级方案
       statistics.value = stats
     }
-    
-    // 3. 获取测点列表用于快速入口计数
-    const points = await getMonitoringPoints()
-    quickLinks[0].count = points.filter(p => p.type === 'tension_wire').length
-    quickLinks[1].count = points.filter(p => p.type === 'hydrostatic_level').length
-    quickLinks[2].count = points.filter(p => p.type === 'plumb_line').length
 
   } catch (error) {
-    console.error('加载Dashboard数据失败:', error)
+    console.error('加载Dashboard统计数据失败:', error)
+  }
+}
+
+/**
+ * 加载快速入口数据
+ */
+async function loadQuickAccessData() {
+  try {
+    // 3. 获取测点列表用于快速入口计数
+    const points = await getMonitoringPoints()
+    console.log('Fetched points for Quick Access:', points.length) 
+    
+    const countByType = (t: string) => points.filter(p => p.type === t).length
+    
+    quickLinks.value[0].count = countByType('tension_wire')
+    quickLinks.value[1].count = countByType('hydrostatic_level')
+    quickLinks.value[2].count = countByType('plumb_line')
+  } catch (error) {
+    console.error('加载快速入口数据失败:', error)
   }
 }
 

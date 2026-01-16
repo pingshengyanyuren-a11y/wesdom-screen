@@ -4,22 +4,35 @@
   作者: 章涵硕
 -->
 <script setup lang="ts">
-import { ref } from 'vue'
+import { useSettingsStore } from '@/stores/settings'
 import { ElMessage } from 'element-plus'
+import { storeToRefs } from 'pinia'
 
-// 系统设置
-const settings = ref({
-  autoRefresh: true,
-  refreshInterval: 30,
-  enableNotification: true,
-  warningThreshold: 80,
-  dangerThreshold: 95,
-  darkMode: true
-})
+const settingsStore = useSettingsStore()
+const { 
+  autoRefresh, 
+  refreshInterval, 
+  enableNotification, 
+  warningThreshold, 
+  dangerThreshold, 
+  darkMode 
+} = storeToRefs(settingsStore)
 
 // 保存设置
 function saveSettings() {
+  settingsStore.saveToLocal()
   ElMessage.success('设置已保存！')
+}
+
+// 重置默认
+function resetSettings() {
+  darkMode.value = true
+  autoRefresh.value = true
+  refreshInterval.value = 30
+  enableNotification.value = true
+  warningThreshold.value = 80
+  dangerThreshold.value = 95
+  ElMessage.info('已重置为默认设置')
 }
 </script>
 
@@ -31,40 +44,40 @@ function saveSettings() {
         系统设置
       </h3>
       
-      <el-form :model="settings" label-width="140px" class="settings-form">
+      <el-form label-width="140px" class="settings-form">
         <el-divider content-position="left">数据刷新</el-divider>
         
         <el-form-item label="自动刷新">
-          <el-switch v-model="settings.autoRefresh" />
+          <el-switch v-model="autoRefresh" />
         </el-form-item>
         
         <el-form-item label="刷新间隔(秒)">
-          <el-slider v-model="settings.refreshInterval" :min="10" :max="120" :step="10" show-input />
+          <el-slider v-model="refreshInterval" :min="10" :max="120" :step="10" show-input />
         </el-form-item>
         
         <el-divider content-position="left">预警设置</el-divider>
         
         <el-form-item label="启用通知">
-          <el-switch v-model="settings.enableNotification" />
+          <el-switch v-model="enableNotification" />
         </el-form-item>
         
         <el-form-item label="警告阈值(%)">
-          <el-input-number v-model="settings.warningThreshold" :min="50" :max="100" />
+          <el-input-number v-model="warningThreshold" :min="50" :max="100" />
         </el-form-item>
         
         <el-form-item label="危险阈值(%)">
-          <el-input-number v-model="settings.dangerThreshold" :min="80" :max="100" />
+          <el-input-number v-model="dangerThreshold" :min="80" :max="100" />
         </el-form-item>
         
         <el-divider content-position="left">界面设置</el-divider>
         
         <el-form-item label="深色模式">
-          <el-switch v-model="settings.darkMode" />
+          <el-switch v-model="darkMode" />
         </el-form-item>
         
         <el-form-item>
           <el-button type="primary" @click="saveSettings">保存设置</el-button>
-          <el-button>重置默认</el-button>
+          <el-button @click="resetSettings">重置默认</el-button>
         </el-form-item>
       </el-form>
     </div>

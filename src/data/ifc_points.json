@@ -1,0 +1,578 @@
+[
+  {
+    "id": "12tYiwH$v9xxA6MGNxV5Q5",
+    "name": "EX:EX10:239584",
+    "point_id": "EX10",
+    "type": "EX",
+    "x": -361310.7072419701,
+    "y": 72976.1387981547,
+    "z": 109000.0
+  },
+  {
+    "id": "12tYiwH$v9xxA6MGNxV5Q6",
+    "name": "EX:EX1:239587",
+    "point_id": "EX1",
+    "type": "EX",
+    "x": -361310.7072419697,
+    "y": 270675.0137981548,
+    "z": 109000.0
+  },
+  {
+    "id": "12tYiwH$v9xxA6MGNxV5Q3",
+    "name": "EX:EX6:239590",
+    "point_id": "EX6",
+    "type": "EX",
+    "x": -361310.70724197,
+    "y": 158075.01379815448,
+    "z": 109000.0
+  },
+  {
+    "id": "12tYiwH$v9xxA6MGNxV5QC",
+    "name": "EX:EX7:239593",
+    "point_id": "EX7",
+    "type": "EX",
+    "x": -361310.70724197,
+    "y": 138675.01379815498,
+    "z": 109000.0
+  },
+  {
+    "id": "12tYiwH$v9xxA6MGNxV5Q9",
+    "name": "EX:EX9:239596",
+    "point_id": "EX9",
+    "type": "EX",
+    "x": -361310.7072419701,
+    "y": 97175.01379815495,
+    "z": 109000.0
+  },
+  {
+    "id": "12tYiwH$v9xxA6MGNxV5QA",
+    "name": "EX:EX3:239599",
+    "point_id": "EX3",
+    "type": "EX",
+    "x": -361310.7072419699,
+    "y": 220675.01379815492,
+    "z": 109000.0
+  },
+  {
+    "id": "12tYiwH$v9xxA6MGNxV5QN",
+    "name": "EX:EX8:239602",
+    "point_id": "EX8",
+    "type": "EX",
+    "x": -361310.70724197,
+    "y": 118675.01379815495,
+    "z": 109000.0
+  },
+  {
+    "id": "12tYiwH$v9xxA6MGNxV5QT",
+    "name": "EX:EX5:239608",
+    "point_id": "EX5",
+    "type": "EX",
+    "x": -361310.7072419699,
+    "y": 179755.01379815498,
+    "z": 109000.0
+  },
+  {
+    "id": "12tYiwH$v9xxA6MGNxV5QU",
+    "name": "EX:EX4:239611",
+    "point_id": "EX4",
+    "type": "EX",
+    "x": -361310.7072419699,
+    "y": 201315.88802178204,
+    "z": 109000.0
+  },
+  {
+    "id": "12tYiwH$v9xxA6MGNxV5QR",
+    "name": "EX:EX2:239614",
+    "point_id": "EX2",
+    "type": "EX",
+    "x": -361310.7072419697,
+    "y": 240675.01379815495,
+    "z": 109000.0
+  },
+  {
+    "id": "0qjpQB1T5FWuHCgdEtpG3W",
+    "name": "张引线:EX:241759",
+    "point_id": "EX",
+    "type": "张引线",
+    "x": -360641.3956149672,
+    "y": 290723.72243248054,
+    "z": -659.5828121913403
+  },
+  {
+    "id": "1axqngiof4ufAxbH_MAgZP",
+    "name": "IP:IP2:253389",
+    "point_id": "IP2",
+    "type": "IP",
+    "x": -354419.9102429755,
+    "y": 289191.01264623617,
+    "z": 0.0
+  },
+  {
+    "id": "1axqngiof4ufAxbH_MAfZK",
+    "name": "IP:IP3:257472",
+    "point_id": "IP3",
+    "type": "IP",
+    "x": -354515.77916092676,
+    "y": 61501.591211680025,
+    "z": 0.0
+  },
+  {
+    "id": "1axqngiof4ufAxbH_MAfZ0",
+    "name": "IP:IP1:257492",
+    "point_id": "IP1",
+    "type": "IP",
+    "x": -356815.7791609268,
+    "y": 180995.23128119856,
+    "z": 1889.4399988066216
+  },
+  {
+    "id": "1axqngiof4ufAxbH_MAeSy",
+    "name": "PL:PL1:258600",
+    "point_id": "PL1",
+    "type": "PL",
+    "x": -355453.5565897361,
+    "y": 181492.84108403343,
+    "z": 0.0
+  },
+  {
+    "id": "2dMFHnSVLBAf4CAnWGIQ_Y",
+    "name": "PL2:IP6(倒锤线):268515",
+    "point_id": "IP6(倒锤线)",
+    "type": "PL2",
+    "x": -355453.5565897361,
+    "y": 180372.84108403334,
+    "z": -50018.0
+  },
+  {
+    "id": "1xHUfoV3jD49tymVrO$2UP",
+    "name": "UP:UPxdb10:275992",
+    "point_id": "UPxdb10",
+    "type": "UP",
+    "x": -355096.11190711,
+    "y": 70431.3120883851,
+    "z": -12414.34059711248
+  },
+  {
+    "id": "1xHUfoV3jD49tymVrO$2_I",
+    "name": "UP:UPxdb9:278035",
+    "point_id": "UPxdb9",
+    "type": "UP",
+    "x": -355096.11190711,
+    "y": 91255.42822745553,
+    "z": -30799.116907962678
+  },
+  {
+    "id": "1xHUfoV3jD49tymVrO$2_Y",
+    "name": "UP:UPxdb1:278051",
+    "point_id": "UPxdb1",
+    "type": "UP",
+    "x": -355096.11190711,
+    "y": 275089.7056346365,
+    "z": -9891.11878746841
+  },
+  {
+    "id": "1xHUfoV3jD49tymVrO$2_o",
+    "name": "UP:UPxdb2:278067",
+    "point_id": "UPxdb2",
+    "type": "UP",
+    "x": -355096.11190711,
+    "y": 251084.0038067196,
+    "z": -28486.038969320616
+  },
+  {
+    "id": "3_RWvExEP2M9A8W0IFTbFG",
+    "name": "UP:UPxdb8:296123",
+    "point_id": "UPxdb8",
+    "type": "UP",
+    "x": -355096.11190711,
+    "y": 134501.52801338586,
+    "z": -68994.78643762636
+  },
+  {
+    "id": "3_RWvExEP2M9A8W0IFTbEc",
+    "name": "UP:UPxdb7:296141",
+    "point_id": "UPxdb7",
+    "type": "UP",
+    "x": -355096.11190711,
+    "y": 144927.6678414552,
+    "z": -77743.35652196207
+  },
+  {
+    "id": "3_RWvExEP2M9A8W0IFTbEs",
+    "name": "UP:UPxdb6:296157",
+    "point_id": "UPxdb6",
+    "type": "UP",
+    "x": -355096.11190711,
+    "y": 167148.31131949252,
+    "z": -96950.0
+  },
+  {
+    "id": "3_RWvExEP2M9A8W0IFTbEQ",
+    "name": "UP:UPxdb5:296177",
+    "point_id": "UPxdb5",
+    "type": "UP",
+    "x": -355096.11190711,
+    "y": 179559.14709638106,
+    "z": -105967.0
+  },
+  {
+    "id": "3kzMdE_zn9fBeLrHfPSCFK",
+    "name": "UP:UPxdb4:296199",
+    "point_id": "UPxdb4",
+    "type": "UP",
+    "x": -355096.11190711,
+    "y": 207860.02332103194,
+    "z": -83855.93218813378
+  },
+  {
+    "id": "3kzMdE_zn9fBeLrHfPSCFA",
+    "name": "UP:UPxdb3:296217",
+    "point_id": "UPxdb3",
+    "type": "UP",
+    "x": -355096.11190711,
+    "y": 225570.84715926554,
+    "z": -68994.78643762608
+  },
+  {
+    "id": "3SKEaIHOn8OhUPn1z5Pk0l",
+    "name": "UP:UPxdb5-1:309047",
+    "point_id": "UPxdb5-1",
+    "type": "UP",
+    "x": -349696.11190711,
+    "y": 179559.14709638103,
+    "z": -105967.0
+  },
+  {
+    "id": "3SKEaIHOn8OhUPn1z5Pk1R",
+    "name": "UP:UPxdb8-1:309059",
+    "point_id": "UPxdb8-1",
+    "type": "UP",
+    "x": -344296.1119071101,
+    "y": 134501.52801338583,
+    "z": -68994.78643762636
+  },
+  {
+    "id": "3SKEaIHOn8OhUPn1z5Pk1C",
+    "name": "UP:UPxdb8-2:309076",
+    "point_id": "UPxdb8-2",
+    "type": "UP",
+    "x": -322296.1119071101,
+    "y": 134501.52801338577,
+    "z": -68994.78643762636
+  },
+  {
+    "id": "3SKEaIHOn8OhUPn1z5Pk1x",
+    "name": "UP:UPxdb3-1:309091",
+    "point_id": "UPxdb3-1",
+    "type": "UP",
+    "x": -342996.11190711,
+    "y": 225570.8471592655,
+    "z": -68994.78643762608
+  },
+  {
+    "id": "3SKEaIHOn8OhUPn1z5Pk1s",
+    "name": "UP:UPxdb3-2:309102",
+    "point_id": "UPxdb3-2",
+    "type": "UP",
+    "x": -324896.1119071101,
+    "y": 225570.84715926545,
+    "z": -68994.78643762608
+  },
+  {
+    "id": "2T2gomtTP5cvVjNQ$Th4KK",
+    "name": "P:Pxdb5-1:310027",
+    "point_id": "Pxdb5-1",
+    "type": "P",
+    "x": -333633.06766113697,
+    "y": 180281.63166305222,
+    "z": -105926.80649208077
+  },
+  {
+    "id": "2lrrXAlXDEA9GuW52HbyKA",
+    "name": "P:Pxdb5-2:310097",
+    "point_id": "Pxdb5-2",
+    "type": "P",
+    "x": -362133.06766113697,
+    "y": 180281.63166305234,
+    "z": -105926.80649208077
+  },
+  {
+    "id": "2lrrXAlXDEA9GuW52HbyKo",
+    "name": "P:Pxdb5-3:310121",
+    "point_id": "Pxdb5-3",
+    "type": "P",
+    "x": -356033.06766113697,
+    "y": 180281.6316630523,
+    "z": -105926.80649208077
+  },
+  {
+    "id": "2lrrXAlXDEA9GuW52HbyKe",
+    "name": "P:Pxdb5-4:310131",
+    "point_id": "Pxdb5-4",
+    "type": "P",
+    "x": -350633.06766113697,
+    "y": 180281.63166305228,
+    "z": -105926.80649208077
+  },
+  {
+    "id": "2lrrXAlXDEA9GuW52HbyNO",
+    "name": "P:Pxdb5-5:310147",
+    "point_id": "Pxdb5-5",
+    "type": "P",
+    "x": -362133.06766113697,
+    "y": 180281.63166305234,
+    "z": -93640.0
+  },
+  {
+    "id": "2lrrXAlXDEA9GuW52HbyNV",
+    "name": "P:Pxdb5-6:310148",
+    "point_id": "Pxdb5-6",
+    "type": "P",
+    "x": -356033.06766113697,
+    "y": 180281.6316630523,
+    "z": -93640.0
+  },
+  {
+    "id": "2lrrXAlXDEA9GuW52HbyNU",
+    "name": "P:Pxdb5-7:310149",
+    "point_id": "Pxdb5-7",
+    "type": "P",
+    "x": -350633.06766113697,
+    "y": 180281.63166305228,
+    "z": -93640.0
+  },
+  {
+    "id": "2wlCOZ$Sj4x80Je8bRsjRs",
+    "name": "P:Pxdb8-1:310182",
+    "point_id": "Pxdb8-1",
+    "type": "P",
+    "x": -360079.01753645315,
+    "y": 134463.8391021598,
+    "z": -84547.36666843055
+  },
+  {
+    "id": "2wlCOZ$Sj4x80Je8bRsjQ0",
+    "name": "P:Pxdb8-2:310224",
+    "point_id": "Pxdb8-2",
+    "type": "P",
+    "x": -351179.03302343003,
+    "y": 134480.44218505322,
+    "z": -84547.44142356275
+  },
+  {
+    "id": "2wlCOZ$Sj4x80Je8bRsjQB",
+    "name": "P:Pxdb8-3:310235",
+    "point_id": "Pxdb8-3",
+    "type": "P",
+    "x": -337279.0572109559,
+    "y": 134506.37284260584,
+    "z": -84547.55817596031
+  },
+  {
+    "id": "2wlCOZ$Sj4x80Je8bRsjQg",
+    "name": "P:Pxdb8-4:310266",
+    "point_id": "Pxdb8-4",
+    "type": "P",
+    "x": -360079.01753645315,
+    "y": 134490.8204264105,
+    "z": -76647.41274399894
+  },
+  {
+    "id": "2wlCOZ$Sj4x80Je8bRsjQh",
+    "name": "P:Pxdb8-5:310267",
+    "point_id": "Pxdb8-5",
+    "type": "P",
+    "x": -351179.03302343003,
+    "y": 134507.4235093039,
+    "z": -76647.48749913115
+  },
+  {
+    "id": "2wlCOZ$Sj4x80Je8bRsjQi",
+    "name": "P:Pxdb8-6:310268",
+    "point_id": "Pxdb8-6",
+    "type": "P",
+    "x": -337279.0572109559,
+    "y": 134533.35416685653,
+    "z": -76647.60425152871
+  },
+  {
+    "id": "1rmBqP5GX5yv3Dp_FWlMFk",
+    "name": "WE:WExdb2:311163",
+    "point_id": "WExdb2",
+    "type": "WE",
+    "x": -355251.78660772374,
+    "y": 177678.2559000657,
+    "z": -106094.0
+  },
+  {
+    "id": "1rmBqP5GX5yv3Dp_FWlMCu",
+    "name": "WE:WExdb1:311213",
+    "point_id": "WExdb1",
+    "type": "WE",
+    "x": -355251.78660772374,
+    "y": 181778.2559000657,
+    "z": -106094.0
+  },
+  {
+    "id": "0pFkw2lkL2Aebxc20fyb9b",
+    "name": "UPR:UPxby1:312054",
+    "point_id": "UPxby1",
+    "type": "UPR",
+    "x": -353989.4064649552,
+    "y": 56377.102751652536,
+    "z": 0.0
+  },
+  {
+    "id": "0x_bjQysT5QfhQ1DEJpZQq",
+    "name": "UPR:UPxby2:312083",
+    "point_id": "UPxby2",
+    "type": "UPR",
+    "x": -350191.2327040405,
+    "y": 41143.45984911938,
+    "z": 0.0
+  },
+  {
+    "id": "0x_bjQysT5QfhQ1DEJpZQ4",
+    "name": "UPR:UPxby3:312099",
+    "point_id": "UPxby3",
+    "type": "UPR",
+    "x": -347449.52261512715,
+    "y": 62951.74080332831,
+    "z": -3700.0
+  },
+  {
+    "id": "0x_bjQysT5QfhQ1DEJpZRl",
+    "name": "UPR:UPxby4:312136",
+    "point_id": "UPxby4",
+    "type": "UPR",
+    "x": -340378.4548032616,
+    "y": 67522.80861519378,
+    "z": -12748.179193451628
+  },
+  {
+    "id": "0x_bjQysT5QfhQ1DEJpZRH",
+    "name": "UPR:UPxbz1:312182",
+    "point_id": "UPxbz1",
+    "type": "UPR",
+    "x": -353989.4064649548,
+    "y": 292377.1027516526,
+    "z": 0.0
+  },
+  {
+    "id": "0x_bjQysT5QfhQ1DEJpZOX",
+    "name": "UPR:UPxbz2:312198",
+    "point_id": "UPxbz2",
+    "type": "UPR",
+    "x": -353989.4064649548,
+    "y": 304877.1027516526,
+    "z": 0.0
+  },
+  {
+    "id": "0x_bjQysT5QfhQ1DEJpZOv",
+    "name": "UPR:UPxbz3:312222",
+    "point_id": "UPxbz3",
+    "type": "UPR",
+    "x": -349335.2341105899,
+    "y": 283980.75356311444,
+    "z": -8265.621995282227
+  },
+  {
+    "id": "0x_bjQysT5QfhQ1DEJpZOF",
+    "name": "UPR:UPxbz4:312232",
+    "point_id": "UPxbz4",
+    "type": "UPR",
+    "x": -346600.46161314985,
+    "y": 276666.3754197263,
+    "z": -18357.933961250248
+  },
+  {
+    "id": "1qGadvtVf2xRNwSvl2X5Yg",
+    "name": "DL:DL4:313546",
+    "point_id": "DL4",
+    "type": "DL",
+    "x": -356726.5067859739,
+    "y": 202169.36679203622,
+    "z": 0.0
+  },
+  {
+    "id": "1qGadvtVf2xRNwSvl2X5no",
+    "name": "DL:DL3:314386",
+    "point_id": "DL3",
+    "type": "DL",
+    "x": -356726.5067859739,
+    "y": 221528.4925684091,
+    "z": 0.0
+  },
+  {
+    "id": "1qGadvtVf2xRNwSvl2X4PY",
+    "name": "DL:DL2:316930",
+    "point_id": "DL2",
+    "type": "DL",
+    "x": -356726.5067859739,
+    "y": 241528.49256840913,
+    "z": 0.0
+  },
+  {
+    "id": "1qGadvtVf2xRNwSvl2X4Pi",
+    "name": "DL:DL1:316940",
+    "point_id": "DL1",
+    "type": "DL",
+    "x": -356726.50678597385,
+    "y": 271528.4925684089,
+    "z": 0.0
+  },
+  {
+    "id": "1qGadvtVf2xRNwSvl2X4Pq",
+    "name": "DL:DL5:316948",
+    "point_id": "DL5",
+    "type": "DL",
+    "x": -356726.50678597396,
+    "y": 180608.49256840907,
+    "z": 0.0
+  },
+  {
+    "id": "1qGadvtVf2xRNwSvl2X4Py",
+    "name": "DL:DL6:316956",
+    "point_id": "DL6",
+    "type": "DL",
+    "x": -356726.506785974,
+    "y": 158928.49256840863,
+    "z": 0.0
+  },
+  {
+    "id": "1qGadvtVf2xRNwSvl2X4P4",
+    "name": "DL:DL7:316964",
+    "point_id": "DL7",
+    "type": "DL",
+    "x": -356726.506785974,
+    "y": 139528.49256840913,
+    "z": 0.0
+  },
+  {
+    "id": "1qGadvtVf2xRNwSvl2X4PC",
+    "name": "DL:DL8:316972",
+    "point_id": "DL8",
+    "type": "DL",
+    "x": -356726.506785974,
+    "y": 119528.49256840906,
+    "z": 0.0
+  },
+  {
+    "id": "1qGadvtVf2xRNwSvl2X4PK",
+    "name": "DL:DL9:316980",
+    "point_id": "DL9",
+    "type": "DL",
+    "x": -356726.50678597414,
+    "y": 98028.49256840906,
+    "z": 0.0
+  },
+  {
+    "id": "1qGadvtVf2xRNwSvl2X4PS",
+    "name": "DL:DL10:316988",
+    "point_id": "DL10",
+    "type": "DL",
+    "x": -356726.5067859742,
+    "y": 73829.61756840884,
+    "z": 0.0
+  }
+]

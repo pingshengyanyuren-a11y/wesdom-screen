@@ -402,7 +402,11 @@ def get_realtime_status():
             
             if not df_all.empty:
                 df_all['value'] = pd.to_numeric(df_all['value'])
-                df_all['measured_at'] = pd.to_datetime(df_all['measured_at'])
+                # 使用 mixed 格式以兼容带/不带微秒的时间字符串
+                try:
+                    df_all['measured_at'] = pd.to_datetime(df_all['measured_at'], format='mixed')
+                except:
+                    df_all['measured_at'] = pd.to_datetime(df_all['measured_at'], errors='coerce')
 
             # 在内存中处理每个测点
             for pt in points:
@@ -483,7 +487,11 @@ def detect_anomalies():
             
             if not df_all.empty:
                 df_all['value'] = pd.to_numeric(df_all['value'])
-                df_all['measured_at'] = pd.to_datetime(df_all['measured_at'])
+                # 使用 mixed 格式以兼容带/不带微秒的时间字符串
+                try:
+                    df_all['measured_at'] = pd.to_datetime(df_all['measured_at'], format='mixed')
+                except:
+                    df_all['measured_at'] = pd.to_datetime(df_all['measured_at'], errors='coerce')
 
             for pt in points:
                 if df_all.empty: continue
@@ -775,20 +783,53 @@ def ask_agent_stream():
 
 @app.route('/api/batch_train_and_store', methods=['POST'])
 def batch_train_store():
-    """触发后台全量训练入库任务"""
-    import threading
-    # from save_predictions import batch_process_and_save # MISSING
-    
+    """触发后台全量训练入库任务 (优化版: 真正执行预测并存库)"""
     try:
-        # 在后台线程运行，避免阻塞API
-        # thread = threading.Thread(target=batch_process_and_save)
-        # thread.start()
+        from config import supabase
+        pred = get_predictor()
+        
+        # 1. 获取所有测点
+        points_map = pred.data_processor.get_points_with_types()
+        point_names = list(points_map.keys())
+        
+        success_count = 0
+        for name in point_names:
+            try:
+                # 执行预测
+                res = pred.predict(name, steps=30)
+                if 'error' in res: continue
+                
+                # 构造存库记录 (对应真实 Supabase 表结构)
+                record = {
+                    'point_name': name,
+                    'type': res.get('type', 'tension_wire'),
+                    'last_value': res['history'][-1] if res['history'] else 0,
+                    'prediction_json': {
+                        'predictions': res['predictions'],
+                        'confidence_upper': res['confidence_upper'],
+                        'confidence_lower': res['confidence_lower'],
+                        'weights': res.get('weights', {'lstm': 0.5, 'stacking': 0.5}),
+                        'attention_weights': res.get('attention_weights', []),
+                        'fusion_details': res.get('fusion_details', {})
+                    },
+                    'updated_at': datetime.now().isoformat()
+                }
+                
+                # 写入数据库 (使用 upsert，如果已存在则更新)
+                supabase.table('predictions').upsert(record, on_conflict='point_name').execute()
+                success_count += 1
+            except Exception as e:
+                print(f"Error processing point {name}: {e}")
         
         return jsonify({
-            'success': False, 
-            'message': 'Backend module missing (save_predictions).'
+            'success': True, 
+            'message': '全量预计算任务完成',
+            'total_points': len(point_names),
+            'success_count': success_count
         })
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         return jsonify({'success': False, 'error': str(e)}), 500
 
 

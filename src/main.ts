@@ -23,6 +23,7 @@ import App from './App.vue'
 
 // 认证状态
 import { useAuthStore } from './stores/auth'
+import { useSettingsStore } from './stores/settings'
 
 // 创建应用实例
 const app = createApp(App)
@@ -31,6 +32,10 @@ const app = createApp(App)
 app.use(createPinia())
 app.use(router)
 app.use(ElementPlus, { size: 'default' })
+
+// 初始化设置 (应用主题)
+const settingsStore = useSettingsStore()
+// watch in store will handle immediate application
 
 // 注册 Element Plus 图标
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
